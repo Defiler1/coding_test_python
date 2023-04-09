@@ -10,6 +10,7 @@ def greedy_coins():
 
    print(total_coin)
 
+
 def big_number():
    n, m, k = map(int, input().split())
    num_list = list(map(int, input().split()))
@@ -45,6 +46,7 @@ def big_number2():
 
    print(result)
 
+
 def num_card_game():
    n, m = map(int, input().split())
    card_list =[]
@@ -69,22 +71,57 @@ def to_1():
    print(result)
 
 
+def LRUD():
+   n = int(input())
+   plans = list(input().split())
+   # R R R U D D
+   x, y = 1, 1
 
-n = int(input())
-direction_list = list(input().split())
-direction_type = ['L', 'R', 'U', 'D']
-dx = [0, 0, 1, -1]
-dy = [-1, 1, 0, 0]
-x, y = 1, 1
+   dx = [0, 0, -1, 1]
+   dy = [-1, 1, 0, 0]
+   move_types = ['L', 'R', 'U', 'D']
+
+   for plan in plans:
+      for i in range(len(move_types)):
+         if plan == move_types[i]:
+            nx = x + dx[i]
+            ny = y + dy[i]
+      if nx < 1 or ny < 1 or nx > n or ny > n:
+         continue
+
+      x, y = nx, ny
+
+   print(x, y)
 
 
-for direction in direction_list:
-   for i in range(len(direction_type)):
-      if direction_type[i] == direction:
-         ax = x + dx[i]
-         ay = y + dx[i]
-   if ax < 1 or ay < 1 or ax > n or ay > n:
-      continue
-   x, y = ax, ay
+def time_count():
+   n = int(input())
 
-print(x, y)
+   count = 0
+
+   # 0 ~ n+1
+   for i in range(n + 1):
+      # 0 ~ 59
+      for j in range(60):
+         # 0 ~ 59
+         for k in range(60):
+            if '3' in str(i) + str(j) + str(k):
+               count += 1
+
+   print(count)
+
+def kinght_move():
+   init_location = input()
+   row = init_location[1]
+   column = int(ord(init_location[0])) - int(ord('a')) + 1
+   steps = [(-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2), (-2, 1)]
+   
+   result = 0
+   
+   for step in steps:
+      nrow = row + step[0]
+      ncolumn = column + step[1]
+      if nrow >= 1 and nrow <= 8 and ncolumn >= 1 and ncolumn <= 8:
+         result += 1
+   
+   print(result)
