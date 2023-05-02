@@ -125,3 +125,162 @@ def kinght_move():
          result += 1
    
    print(result)
+
+
+# n * (n - 1)!
+def factorial(n):
+   if n <= 1:
+      return 1
+   return n * factorial(n -1)
+
+# print(factorial(5))
+
+
+# 5-6.py 인접 행렬 방식 예제
+# INF = 99999999999
+
+# 리스트를 이용해 인접 행렬 표현
+# graph = [
+#    [0,7,5],
+#    [7,0,INF],
+#    [5,INF,0]
+# ]
+
+
+# 인접 리스트 표현
+# graph = [[] for _ in range(3)]
+
+
+# graph[0].append((1,7))
+# graph[0].append((2,5))
+
+# graph[1].append((0,7))
+
+# graph[2].append((0,5))
+
+# print(graph)
+
+
+# 5-8.py DFS 메서드 정의
+def dfs(graph, v, visited):
+   # 현재노드 방문처리
+   visited[v] = True
+   print(v, end=' ')
+   # 현재 노드와 연결된 다른 노드를 재귀적으로 방문
+   for i in graph[v]:
+      if not visited[i]:
+         dfs(graph, i, visited)
+
+
+# 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
+graph= [
+   [],
+   [2,3,8],
+   [1,7],
+   [1,4,5],
+   [3,5],
+   [3,4],
+   [7],
+   [2,6,8],
+   [1,7],
+]
+
+# 각 노드가 방문된 정보를 리스트 자료형으로 표현(1차원 리스트)
+visited = [False] * 9
+
+# dfs(graph, 1, visited)
+
+
+# 5-9.py BFS 메서드 정의
+from collections import deque
+
+def bfs(graph, start, visited):
+   # 큐(Queue) 구현을 위해 deque 라이브러리 사용
+   queue = deque([start])
+   # 현재노드 방문처리
+   visited[start] = True
+   # 큐가 빌 때까지 반복
+   while queue:
+      # 큐에서 하나의 원소를 뽑아 출력
+      v = queue.popleft()
+      print(v, end= ' ')
+      # 해당 원소와 연결된, 아직 방문하지 않은 원소들을 큐에 삽입
+      for i in graph[v]:
+         if not visited[i]:
+            queue.append(i)
+            visited[i] = True
+
+
+# bfs(graph, 1, visited)
+
+
+# n - 세로, m - 가로
+def py510():
+   n, m = map(int, input().split())
+   graph = []
+   for i in range(n):
+      graph.append(list(map(int, input().split())))
+
+   def dfs2(x, y):
+      if x <= -1 or x >= n or y <= -1 or y >= m:
+         return False
+
+      # 현재노드 방문하지 않았을 때
+      if graph[x][y] == 0:
+
+         # 해당 노드 방문처리
+         graph[x][y] = 1
+
+         # 상, 하, 좌, 우
+         dfs2(x - 1, y)
+         dfs2(x, y - 1)
+         dfs2(x + 1, y)
+         dfs2(x, y + 1)
+         return True
+      return False
+
+   result = 0
+   for i in range(n):
+      for j in range(m):
+         # 현재 위치에서 DFS 수행
+         if dfs2(i, j) == True:
+            result += 1
+
+   # print(result)
+
+
+# selection sort
+
+def sel_sort():
+   arr = [7,5,9,0,3,1,6,2,4,8]
+
+   for i in range(len(arr)):
+      min_idx = i
+      for j in range(i + 1, len(arr)):
+         if arr[min_idx] > arr[j]:
+            min_idx = j
+      arr[i], arr[min_idx] = arr[min_idx], arr[i]
+   return arr
+
+
+def sel_sort2(xs):
+   if xs != []:
+      smallest = min(xs)
+      xs.remove(smallest)
+      return [smallest] + sel_sort2(xs)
+   else:
+      return []
+   
+
+# insertion sort
+
+def insertion_sort():
+   arr = [7,5,9,0,3,1,6,2,4,8]
+
+   for i in range(1, len(arr)):
+      for j in range(i, 0, -1):
+         if arr[j] < arr[j - 1]:
+            arr[j], arr[j - 1] = arr[j - 1], arr[j]
+         else:
+            break
+   return arr
